@@ -14,8 +14,12 @@
                 <img src="\image\cnpq-logo.png" alt="Logo" width="80" height="60" class="d-inline-block align-text-center">
                 API CNPq
                 </p>
-
-                <a  class="btn btn-primary" href="/usuarios/cadastro">Cadastre um novo usuário</a> 
+                
+                <div>
+                    <a  class="btn btn-primary" href="/usuarios/cadastro">Cadastre um novo usuário</a> 
+                    <a  class="btn btn-primary" href="/areas/cadastro">Cadastre um nova área</a>
+                </div>
+                
 
             </div>
         </nav>

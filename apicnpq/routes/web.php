@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UsuariosController;
+use App\Http\Controllers\AreaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,3 +26,10 @@ Route::get('/usuarios', [UsuariosController::class, 'index']);
 Route::get('/usuarios/cadastro', [UsuariosController::class, 'create']);
 
 Route::post('/usuarios/salvar', [UsuariosController::class, 'store']);
+
+// Rotas para áreas
+Route::get('/areas', [AreaController::class, 'index']);
+
+Route::get('/areas/cadastro', [AreaController::class, 'create']);
+
+Route::post('/areas/salvar', [AreaController::class, 'store']);
