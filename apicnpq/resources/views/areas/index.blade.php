@@ -1,6 +1,7 @@
 <x-layout title="Áreas">
     <div class="container" >      
         <h1>Lista de Áreas do sistema</h1>
+        <a  class="btn btn-primary" href="/areas/cadastro">Cadastre uma nova área</a>
         <hr>
         <table class="table">
             <thead>

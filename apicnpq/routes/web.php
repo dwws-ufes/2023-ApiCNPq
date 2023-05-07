@@ -23,6 +23,7 @@ Route::get('/', function () {
 Route::get('/usuarios', [UsuariosController::class, 'index']);
 Route::get('/usuarios/cadastro', [UsuariosController::class, 'create']);
 Route::post('/usuarios/salvar', [UsuariosController::class, 'store']);
+Route::delete('/usuarios/{id}', [UsuariosController::class, 'destroy']);
 
 // Rotas para áreas
 Route::get('/areas', [AreaController::class, 'index']);

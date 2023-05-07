@@ -32,4 +32,13 @@ class UsuariosController extends Controller{
             return "Erro ao cadastrar";
         }
     }
+
+    public function destroy(int $id){
+        echo $id;
+        if(\DB::table('usercnpq')->where('id', $id)->delete()){
+            return redirect('/usuarios')->with('msg', 'Usuário excluído com sucesso!');
+        }else{ 
+                return "Erro ao excluir";
+        }
+    }
 }

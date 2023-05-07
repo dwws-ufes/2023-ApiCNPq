@@ -16,8 +16,8 @@
                 </p>
                 
                 <div>
-                    <a  class="btn btn-primary" href="/usuarios/cadastro">Cadastre um novo usuário</a> 
-                    <a  class="btn btn-primary" href="/areas/cadastro">Cadastre um nova área</a>
+                    <a  class="btn btn-primary" href="/usuarios">Usuários</a> 
+                    <a  class="btn btn-primary" href="/areas">Áreas</a>
                 </div>
                 
 
