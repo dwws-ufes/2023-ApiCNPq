@@ -19,17 +19,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Rota de listagem de usuários
+// Rota de usuários
 Route::get('/usuarios', [UsuariosController::class, 'index']);
-
-//Rota para cadastro de usuários
 Route::get('/usuarios/cadastro', [UsuariosController::class, 'create']);
-
 Route::post('/usuarios/salvar', [UsuariosController::class, 'store']);
 
 // Rotas para áreas
 Route::get('/areas', [AreaController::class, 'index']);
-
 Route::get('/areas/cadastro', [AreaController::class, 'create']);
-
 Route::post('/areas/salvar', [AreaController::class, 'store']);
+Route::delete('/areas/{id}', [AreaController::class, 'destroy']);

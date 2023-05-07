@@ -70,6 +70,10 @@ Execute:
 ```
 npm install bootstrap
 ```
+### Boostrap Icon
+```
+npm i bootstrap-icons
+```
 
 ## DB Facade
 Veja os arquivos:
