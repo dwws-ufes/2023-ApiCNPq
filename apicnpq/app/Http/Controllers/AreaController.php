@@ -73,7 +73,7 @@ class AreaController extends Controller{
      * Remove the specified resource from storage.
      */
     public function destroy(int $id){
-        echo $id;
+        // echo $id;
         if(\DB::table('areas')->where('id', $id)->delete()){
             return redirect('/areas')->with('msg', 'Área excluída com sucesso!');
         }else{ 
