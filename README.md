@@ -23,8 +23,14 @@ A versão utilziada neste projeto é: ``2.5.5``
 
 ## Caso esteja clonando o repositório...
 
-Caso tenha clonadao o repositório, basta acessar a pasta ```apicnqp``` e esecutar o comando:
+Caso tenha clonadao o repositório, será necessário ter em sua máquina as tecnologias informadas no início deste arquivo. Além disso, é necessário ter o SGBD PostgreSQL e criar um banco de dados chamado ```dadoscnpq```. Após isso, basta acessar a pasta ```apicnqp``` e esecutar o comando:
+
 ```
 composer install
 ```
 para ter acesso à todas as dependências do projeto!
+
+Para subir as tabelas do banco de dados, execute 
+```
+php artisan migrate
+```
