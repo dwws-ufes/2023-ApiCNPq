@@ -14,18 +14,18 @@
             <div class="row">
                 <div class="col">
                     <label for="grandeArea">Grande Área: </label>
-                    <input class="form-control" class="form-control" type="text" id="grandeArea" name="grandeArea" >
+                    <input class="form-control" class="form-control" type="text" id="grandeArea" name="grandeArea" value="{{$area->nome_grandearea}}">
                 </div>
                 <div class="col">
                     <div class="form-group">
                         <label for="area">Área: </label>
-                        <input class="form-control" type="text" id="area" name="area">
+                        <input class="form-control" type="text" id="area" name="area" value="{{$area->nome_area}}">
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label for="area">Subarea: </label>
-                    <input class="form-control" type="text" id="subarea" name="subarea" >
+                    <input class="form-control" type="text" id="subarea" name="subarea" value="{{$area->nome_subarea}}">
                 </div>
             </div>  
             <div><br></div> 
