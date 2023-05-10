@@ -22,11 +22,13 @@
                     </td>
                     <td>{{ $area->nome_area }}</td>
                     <td>{{ $area->nome_subarea }}</td>  
-                    <td style="text-align: center !important;">
+                    <td style="text-align: center !important;display: flex;flex-direction: row;flex-wrap: nowrap;justify-content: center;">
+                        <a type="button" class="btn btn-outline-warning" style="margin-rigth: 3px;" href="/areas/{{$area->id}}/edit">Editar</a>
+                        
                         <form action="/areas/{{$area->id}}" method="post">
                             @csrf 
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Excluir</button>
+                            <button type="submit" class="btn btn-danger" style="margin-left: 3px;">Excluir</button>
                         </form>
                     </td>                  
                 </tr>

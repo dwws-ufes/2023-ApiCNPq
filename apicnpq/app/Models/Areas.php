@@ -9,8 +9,8 @@ class Areas extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'nome_area',
+        'nome_subarea',
+        'nome_grandearea',
     ];
 }

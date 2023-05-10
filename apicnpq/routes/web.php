@@ -30,3 +30,5 @@ Route::get('/areas', [AreaController::class, 'index']);
 Route::get('/areas/cadastro', [AreaController::class, 'create']);
 Route::post('/areas/salvar', [AreaController::class, 'store']);
 Route::delete('/areas/{id}', [AreaController::class, 'destroy']);
+Route::get('/areas/{id}/edit', [AreaController::class, 'edit']);
+Route::put('/areas/{id}', [AreaController::class, 'update']);
