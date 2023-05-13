@@ -18,6 +18,8 @@
                 <div>
                     <a  class="btn btn-primary" href="/usuarios">Usuários</a> 
                     <a  class="btn btn-primary" href="/areas">Áreas</a>
+                    <a  class="btn btn-primary" href="/enderecos">Endereços</a>
+                    <a  class="btn btn-primary" href="/enderecos/ufs">Ufs</a>
                 </div>
                 
 

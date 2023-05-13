@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\AreaController;
+use App\Http\Controllers\UfController;
+use App\Http\Controllers\EnderecoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,3 +34,16 @@ Route::post('/areas/salvar', [AreaController::class, 'store']);
 Route::delete('/areas/{id}', [AreaController::class, 'destroy']);
 Route::get('/areas/{id}/edit', [AreaController::class, 'edit']);
 Route::put('/areas/{id}', [AreaController::class, 'update']);
+
+// Rotas para endereços
+Route::get('/enderecos', [EnderecoController::class, 'index']);
+Route::get('/enderecos/cadastro', [EnderecoController::class, 'create']);
+Route::post('/enderecos/salvar', [EnderecoController::class, 'store']);
+Route::delete('/enderecos/{id}', [EnderecoController::class, 'destroy']);
+
+
+// Rotas para ufs
+Route::get('/enderecos/ufs', [UfController::class, 'index']);
+Route::get('/enderecos/ufs/cadastro', [UfController::class, 'create']);
+Route::post('/enderecos/ufs/salvar', [UfController::class, 'store']);
+Route::delete('/enderecos/ufs/{id}', [UfController::class, 'destroy']);
