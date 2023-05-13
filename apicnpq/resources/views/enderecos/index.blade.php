@@ -8,6 +8,7 @@
                 <tr>
                     <th scope="col">id</th>
                     <th scope="col">Endereço</th>
+                    <th scope="col">UF</th>
                     <th scope="col"style="text-align: center !important;">Action</th>
                 </tr>
             </thead>
@@ -16,7 +17,10 @@
                 <tr>
                     <th scope="row">{{$endereco->id}}</th>
                     <td>
-                    {{$endereco->pais}}
+                        {{$endereco->pais}}
+                    </td>
+                    <td>
+                        {{$endereco->uf_id}}
                     </td>
                     <td style="text-align: center !important;">
                         <form action="/enderecos/{{$endereco->id}}" method="post">

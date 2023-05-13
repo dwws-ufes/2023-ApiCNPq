@@ -4,6 +4,7 @@
     <p>Insira os dados abaixos para realizar o cadastro!</p>
     <form action="/enderecos/salvar" method="post">
         @csrf
+        @method('POST')
         <div class="form-group">
             <div class="form-group">
                 <label for="pais">pais: </label>
@@ -11,11 +12,12 @@
             </div>
             <br>
             <div class="form-group">
-            <select form="form-group" class="form-select" aria-label="sigla" id="sigla">
-                    <option selected>Selecione o uf</option>
-                    @foreach ($ufs as $uf)
-                        <option value="{{$uf->id}}">{{$uf->sigla}}</option>
-                    @endforeach
+                <select name="opcao"class="form-select" id="opcao" >
+                        <option selected>Selecione o uf</option>
+                        @foreach ($ufs as $uf)
+                            <option value="{{$uf->id}}">{{$uf->sigla}}</option>
+                        @endforeach
+                </select>
             </div>
             
         </div>

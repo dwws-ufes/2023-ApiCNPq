@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\UfController;
 
-class EnderecoController extends Controller
-{
+class EnderecoController extends Controller{
     /**
      * Display a listing of the resource.
      */
@@ -32,9 +31,11 @@ class EnderecoController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
         $paisEndereco = $request->input('pais');
-        $siglaEndereco = $request->input('sigla');
-       
+        $siglaEndereco = $request->input('opcao');
+        // dd($request->all());
+              
         if(\DB::insert('INSERT INTO endereco (pais, uf_id) VALUES  (?, ?)', [$paisEndereco, $siglaEndereco])){
             return redirect('/enderecos');
         }else{ 
