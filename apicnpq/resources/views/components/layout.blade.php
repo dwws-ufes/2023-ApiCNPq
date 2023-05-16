@@ -10,9 +10,8 @@
 <body>
         <nav class="navbar bg-light">
             <div class="container-fluid">
-                <p class="navbar-brand" href="#">
+                <p class="navbar-brand" href="/">
                 <img src="\image\cnpq-logo.png" alt="Logo" width="80" height="60" class="d-inline-block align-text-center">
-                API CNPq
                 </p>
                 
                 <div>
@@ -21,8 +20,6 @@
                     <a  class="btn btn-primary" href="/enderecos">Endereços</a>
                     <a  class="btn btn-primary" href="/enderecos/ufs">Ufs</a>
                 </div>
-                
-
             </div>
         </nav>
     {{ $slot }} 

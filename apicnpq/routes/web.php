@@ -47,3 +47,6 @@ Route::get('/enderecos/ufs', [UfController::class, 'index']);
 Route::get('/enderecos/ufs/cadastro', [UfController::class, 'create']);
 Route::post('/enderecos/ufs/salvar', [UfController::class, 'store']);
 Route::delete('/enderecos/ufs/{id}', [UfController::class, 'destroy']);
+
+//Rotas para beneficiarios
+// Route::get('/beneficiarios', []);
