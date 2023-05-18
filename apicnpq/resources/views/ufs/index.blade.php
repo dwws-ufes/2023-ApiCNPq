@@ -18,7 +18,8 @@
                     <td>
                     {{$uf->sigla}}
                     </td>
-                    <td style="text-align: center !important;">
+                    <td style="text-align: center !important;display: flex;flex-direction: row;flex-wrap: nowrap;justify-content: center;">
+                        <a type="button" class="btn btn-outline-warning" style="margin-rigth: 3px;" href="/enderecos/ufs/{{$uf->id}}/edit">Editar</a>
                         <form action="/enderecos/ufs/{{$uf->id}}" method="post">
                             @csrf 
                             @method('DELETE')

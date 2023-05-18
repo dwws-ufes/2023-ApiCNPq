@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Uf;
 use Illuminate\Http\Request;
 
 class UfController extends Controller
@@ -11,7 +12,7 @@ class UfController extends Controller
      */
     public function index()
     {
-        $ufs =  \DB::select('SELECT * FROM uf;');
+        $ufs =  \DB::select('SELECT * FROM ufs;');
 
         return view('ufs.index')->with('ufs', $ufs);
     }
@@ -31,7 +32,7 @@ class UfController extends Controller
     {
         $siglaUf = $request->input('sigla');
        
-        if(\DB::insert('INSERT INTO uf (sigla) VALUES (?)', [$siglaUf])){
+        if(\DB::insert('INSERT INTO ufs (sigla) VALUES (?)', [$siglaUf])){
             return redirect('/enderecos/ufs');
         }else{ 
             return "Erro ao cadastrar";
@@ -51,7 +52,8 @@ class UfController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $uf = Uf::findOrFail($id);
+        return view('ufs.edit')->with('uf', $uf);
     }
 
     /**
@@ -59,7 +61,14 @@ class UfController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $id = $id;  
+        $siglaUf = $request->input('sigla');
+    
+        if(\DB::update("UPDATE ufs SET sigla = '" . $siglaUf ."' WHERE id = ?", [$id])){
+            return redirect('/enderecos/ufs')->with('msg', 'Uf editado com sucesso!');
+        }else{ 
+                return "Erro ao editar";
+        }
     }
 
     /**
@@ -68,7 +77,7 @@ class UfController extends Controller
     public function destroy(string $id)
     {
         echo $id;
-        if(\DB::table('uf')->where('id', $id)->delete()){
+        if(\DB::table('ufs')->where('id', $id)->delete()){
             return redirect('/enderecos/ufs')->with('msg', 'Uf excluído com sucesso!');
         }else{ 
                 return "Erro ao excluir";

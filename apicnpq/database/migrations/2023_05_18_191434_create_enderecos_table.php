@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('endereco', function (Blueprint $table) {
+        Schema::create('enderecos', function (Blueprint $table) {
             $table->id();
             $table->string('pais');
             $table->integer('uf_id')->unsigned();
-            $table->foreign('uf_id')->references('id')->on('uf');
+            $table->foreign('uf_id')->references('id')->on('ufs');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('endereco');
+        Schema::dropIfExists('enderecos');
     }
 };

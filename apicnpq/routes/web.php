@@ -40,6 +40,8 @@ Route::get('/enderecos', [EnderecoController::class, 'index']);
 Route::get('/enderecos/cadastro', [EnderecoController::class, 'create']);
 Route::post('/enderecos/salvar', [EnderecoController::class, 'store']);
 Route::delete('/enderecos/{id}', [EnderecoController::class, 'destroy']);
+Route::get('/enderecos/{id}/edit', [EnderecoController::class, 'edit']);
+Route::put('/enderecos/{id}', [EnderecoController::class, 'update']);
 
 
 // Rotas para ufs
@@ -47,6 +49,8 @@ Route::get('/enderecos/ufs', [UfController::class, 'index']);
 Route::get('/enderecos/ufs/cadastro', [UfController::class, 'create']);
 Route::post('/enderecos/ufs/salvar', [UfController::class, 'store']);
 Route::delete('/enderecos/ufs/{id}', [UfController::class, 'destroy']);
+Route::get('/enderecos/ufs/{id}/edit', [UfController::class, 'edit']);
+Route::put('/enderecos/ufs/{id}', [UfController::class, 'update']);
 
 //Rotas para beneficiarios
 // Route::get('/beneficiarios', []);

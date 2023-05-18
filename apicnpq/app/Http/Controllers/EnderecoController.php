@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\UfController;
+use App\Models\Enderecos;
 
 class EnderecoController extends Controller{
     /**
@@ -11,7 +11,7 @@ class EnderecoController extends Controller{
      */
     public function index()
     {
-        $enderecos =  \DB::select('SELECT * FROM endereco;');
+        $enderecos =  \DB::select('SELECT * FROM enderecos INNER JOIN ufs ON enderecos.uf_id = ufs.id;');
 
         return view('enderecos.index')->with('enderecos', $enderecos);
     }
@@ -21,7 +21,7 @@ class EnderecoController extends Controller{
      */
     public function create()
     {
-        $ufs =  \DB::select('SELECT * FROM uf;');
+        $ufs =  \DB::select('SELECT * FROM ufs;');
 
         return view('enderecos.create')->with('ufs', $ufs);
     }
@@ -36,7 +36,7 @@ class EnderecoController extends Controller{
         $siglaEndereco = $request->input('opcao');
         // dd($request->all());
               
-        if(\DB::insert('INSERT INTO endereco (pais, uf_id) VALUES  (?, ?)', [$paisEndereco, $siglaEndereco])){
+        if(\DB::insert('INSERT INTO enderecos (pais, uf_id) VALUES  (?, ?)', [$paisEndereco, $siglaEndereco])){
             return redirect('/enderecos');
         }else{ 
             return "Erro ao cadastrar";
@@ -56,7 +56,9 @@ class EnderecoController extends Controller{
      */
     public function edit(string $id)
     {
-        //
+        $endereco = Enderecos::findOrFail($id);
+        $ufs =  \DB::select('SELECT * FROM ufs;');
+        return view('enderecos.edit')->with('enderecos', $endereco)->with('ufs',$ufs);
     }
 
     /**
@@ -64,7 +66,15 @@ class EnderecoController extends Controller{
      */
     public function update(Request $request, string $id)
     {
-        //
+        $id = $id;  
+        $paisEndereco = $request->input('pais');
+        $siglaEndereco = $request->input('opcao'); 
+    
+        if(\DB::update("UPDATE enderecos SET pais = '" . $paisEndereco . "', uf_id = '" . $siglaEndereco . "' WHERE id = ?", [$id])){
+            return redirect('/enderecos')->with('msg', 'Endereço editado com sucesso!');
+        }else{ 
+                return "Erro ao editar";
+        }
     }
 
     /**
@@ -73,8 +83,8 @@ class EnderecoController extends Controller{
     public function destroy(string $id)
     {
         echo $id;
-        if(\DB::table('endereco')->where('id', $id)->delete()){
-            return redirect('/enderecos')->with('msg', 'endereco excluído com sucesso!');
+        if(\DB::table('enderecos')->where('id', $id)->delete()){
+            return redirect('/enderecos')->with('msg', 'Endereço excluído com sucesso!');
         }else{ 
                 return "Erro ao excluir";
         }

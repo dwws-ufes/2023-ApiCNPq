@@ -20,9 +20,10 @@
                         {{$endereco->pais}}
                     </td>
                     <td>
-                        {{$endereco->uf_id}}
+                        {{$endereco->sigla}}
                     </td>
-                    <td style="text-align: center !important;">
+                    <td style="text-align: center !important;display: flex;flex-direction: row;flex-wrap: nowrap;justify-content: center;">
+                        <a type="button" class="btn btn-outline-warning" style="margin-rigth: 3px;" href="/enderecos/{{$endereco->id}}/edit">Editar</a>
                         <form action="/enderecos/{{$endereco->id}}" method="post">
                             @csrf 
                             @method('DELETE')
