@@ -11,12 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('beneficiarios', function (Blueprint $table) {
+        Schema::create('subarea', function (Blueprint $table) {
             $table->id();
-            $table->string('nome', 255);
-            $table->string('instituicao');
-            $table->string('programaCnpq');
-            $table->float('valor_bolsa');
+            $table->string('nome_subarea');
+
+            $table->integer('area_id')->unsigned();
+            $table->foreign('area_id')->references('id')->on('area');
+
+            $table->integer('grande_area_id')->unsigned();
+            $table->foreign('grande_area_id')->references('id')->on('grandearea');
+
             $table->timestamps();
         });
     }
@@ -26,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('beneficiarios');
+        Schema::dropIfExists('subarea');
     }
 };
