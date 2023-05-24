@@ -6,6 +6,8 @@ use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\UfController;
 use App\Http\Controllers\EnderecoController;
+use App\Http\Controllers\GrandeareaController;
+use App\Http\Controllers\SubareaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,6 +36,23 @@ Route::post('/areas/salvar', [AreaController::class, 'store']);
 Route::delete('/areas/{id}', [AreaController::class, 'destroy']);
 Route::get('/areas/{id}/edit', [AreaController::class, 'edit']);
 Route::put('/areas/{id}', [AreaController::class, 'update']);
+
+// Rotas para Grande área
+Route::get('/grandearea', [GrandeareaController::class, 'index']);
+Route::get('/grandearea/cadastro', [GrandeareaController::class, 'create']);
+Route::post('/grandearea/salvar', [GrandeareaController::class, 'store']);
+Route::delete('/grandearea/{id}', [GrandeareaController::class, 'destroy']);
+Route::get('/grandearea/{id}/edit', [GrandeareaController::class, 'edit']);
+Route::put('/grandearea/{id}', [GrandeareaController::class, 'update']);
+
+// Rotas para Sub-área
+Route::get('/subarea', [SubareaController::class, 'index']);
+Route::get('/subarea/cadastro', [SubareaController::class, 'create']);
+Route::post('/subarea/salvar', [SubareaController::class, 'store']);
+Route::delete('/subarea/{id}', [SubareaController::class, 'destroy']);
+Route::get('/subarea/{id}/edit', [SubareaController::class, 'edit']);
+// Route::get('/subarea/{id}/edit', 'SubareaController@edit')->name('subarea.edit');
+Route::put('/subarea/{id}', [SubareaController::class, 'update']);
 
 // Rotas para endereços
 Route::get('/enderecos', [EnderecoController::class, 'index']);

@@ -11,7 +11,11 @@ class EnderecoController extends Controller{
      */
     public function index()
     {
-        $enderecos =  \DB::select('SELECT * FROM enderecos INNER JOIN ufs ON enderecos.uf_id = ufs.id;');
+        $enderecos = \DB::select('SELECT *
+        FROM ufs
+        JOIN enderecos ON enderecos.uf_id = ufs.id;');
+        
+        // dd($enderecos);
 
         return view('enderecos.index')->with('enderecos', $enderecos);
     }
@@ -42,15 +46,6 @@ class EnderecoController extends Controller{
             return "Erro ao cadastrar";
         }
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -82,8 +77,8 @@ class EnderecoController extends Controller{
      */
     public function destroy(string $id)
     {
-        echo $id;
-        if(\DB::table('enderecos')->where('id', $id)->delete()){
+        // echo $id
+        if( \DB::table('enderecos')->where('id', $id)->delete()){
             return redirect('/enderecos')->with('msg', 'Endereço excluído com sucesso!');
         }else{ 
                 return "Erro ao excluir";

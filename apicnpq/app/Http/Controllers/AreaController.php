@@ -4,15 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Areas;
-
+use App\Models\Grandearea;
 
 class AreaController extends Controller{
     /**
      * Display a listing of the resource.
      */
     public function index(){
-        $areas = \DB::select('SELECT * from areas');
-        // $areas = \DB::select('SELECT ar.nome, sa.nome, ga.nome FROM area AS ar INNER JOIN subarea as sa on ar.id =sa.id INNER JOIN grandearea as ga on ar.id = ga.id');
+        $areas = \DB::select('SELECT ar.id, ar.nome_area, ga.nome_grandearea
+        FROM area AS ar
+        INNER JOIN grandearea AS ga ON ar.grande_area_id = ga.id;');
         
         return view('areas.index')->with('areas', $areas);
     }
@@ -20,45 +21,59 @@ class AreaController extends Controller{
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        return view('areas.create');
+    public function create(){
+        $grandeArea = Grandearea::all();
+        return view('areas.create')->with('grandeareas', $grandeArea);
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request){
-        $grandeArea = $request->input('grandeArea'); 
-        $area = $request->input('area'); 
-        $subarea = $request->input('subarea');
+       
+        $validatedData = $request->validate([
+            'opcao' => 'required',
+            'area'  => 'required'
+        ]);
 
-        if(\DB::insert('INSERT INTO areas (nome_grandearea, nome_area, nome_subarea) VALUES (?, ?, ?)', [$grandeArea , $area, $subarea])){
+       
+        $area = $request->input('area');
+        $grandeArea = $request->input('opcao');
+        
+        if(\DB::insert('INSERT INTO area (nome_area, grande_area_id) VALUES (?, ?)', [$area, $grandeArea])){
                 return redirect('/areas');
         }else{ 
                 return "Erro ao cadastrar";
         }
+
     }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id){
+        $grandeArea = Grandearea::all();
         $area = Areas::findOrFail($id); 
-        return view('areas.edit')->with('area', $area);
+        return view('areas.edit')->with('area', $area)->with('grandeareas', $grandeArea);
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id){
+        $validatedData = $request->validate([
+            'opcao' => 'required',
+            'area'  => 'required'
+        ]);
+
+        // echo "update";
         
         $id = $id;  
-        $grandeArea = $request->input('grandeArea');
+        $grandeArea = $request->input('opcao');
         $area = $request->input('area'); 
-        $subarea = $request->input('subarea');
+        // $subarea = $request->input('subarea');
     
-        if(\DB::update("UPDATE areas SET nome_grandearea = '" . $grandeArea . "', nome_area = '" . $area . "', nome_subarea = '" . $subarea . "' WHERE id = ?", [$id])){
+        if(\DB::update("UPDATE area SET grande_area_id = '" . $grandeArea . "', nome_area = '" . $area . "' WHERE id = ?", [$id])){
             return redirect('/areas')->with('msg', 'Área editada com sucesso!');
         }else{ 
                 return "Erro ao editar";
@@ -69,7 +84,7 @@ class AreaController extends Controller{
      * Remove the specified resource from storage.
      */
     public function destroy(int $id){
-        if(\DB::table('areas')->where('id', $id)->delete()){
+        if(\DB::table('area')->where('id', $id)->delete()){
             return redirect('/areas')->with('msg', 'Área excluída com sucesso!');
         }else{ 
                 return "Erro ao excluir";
