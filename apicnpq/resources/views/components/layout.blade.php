@@ -16,6 +16,7 @@
                 
                 <div>
                     <a  class="btn btn-primary" href="/usuarios">Usuários</a> 
+                    <a  class="btn btn-primary" href="/programa">Programas CNPq</a>
                     <a  class="btn btn-primary" href="/areas">Áreas</a>
                     <a  class="btn btn-primary" href="/grandearea">Grande áreas</a>
                     <a  class="btn btn-primary" href="/subarea">Sub áreas</a>

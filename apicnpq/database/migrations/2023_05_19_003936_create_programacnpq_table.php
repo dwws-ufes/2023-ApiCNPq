@@ -19,9 +19,6 @@ return new class extends Migration
             $table->integer('grande_area_id')->unsigned();
             $table->foreign('grande_area_id')->references('id')->on('grandearea');
 
-            $table->integer('area_id')->unsigned();
-            $table->foreign('area_id')->references('id')->on('area');
-
             $table->timestamps();
         });
     }

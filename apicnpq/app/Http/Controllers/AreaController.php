@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Areas;
-use App\Models\Grandearea;
+
 
 class AreaController extends Controller{
     /**

@@ -8,6 +8,7 @@ use App\Http\Controllers\UfController;
 use App\Http\Controllers\EnderecoController;
 use App\Http\Controllers\GrandeareaController;
 use App\Http\Controllers\SubareaController;
+use App\Http\Controllers\ProgramaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -73,3 +74,11 @@ Route::put('/enderecos/ufs/{id}', [UfController::class, 'update']);
 
 //Rotas para beneficiarios
 // Route::get('/beneficiarios', []);
+
+// Rotas programas
+Route::get('/programa', [ProgramaController::class, 'index']);
+Route::get('/programa/cadastro', [ProgramaController::class, 'create']);
+Route::post('/programa/salvar', [ProgramaController::class, 'store']);
+Route::delete('/programa/{id}', [ProgramaController::class, 'destroy']);
+Route::get('/programa/{id}/edit', [ProgramaController::class, 'edit']);
+Route::put('/programa/{id}', [ProgramaController::class, 'update']);
