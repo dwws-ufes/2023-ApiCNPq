@@ -52,7 +52,6 @@ Route::get('/subarea/cadastro', [SubareaController::class, 'create']);
 Route::post('/subarea/salvar', [SubareaController::class, 'store']);
 Route::delete('/subarea/{id}', [SubareaController::class, 'destroy']);
 Route::get('/subarea/{id}/edit', [SubareaController::class, 'edit']);
-// Route::get('/subarea/{id}/edit', 'SubareaController@edit')->name('subarea.edit');
 Route::put('/subarea/{id}', [SubareaController::class, 'update']);
 
 // Rotas para endereços

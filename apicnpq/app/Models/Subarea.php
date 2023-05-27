@@ -18,7 +18,7 @@ class Subarea extends Model{
         'grande_area_id'
     ];
 
-    protected $primaryKey = 'id';
+    // protected $primaryKey = 'id';
 
     // public function areas(){
     //     return $this->belongsToMany(Area::class);

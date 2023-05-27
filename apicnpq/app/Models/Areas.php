@@ -16,9 +16,9 @@ class Areas extends Model
     protected $table = 'area';
 
     //indicando as ligações com as classes que queremos trabalhar
-    public function grandearea(){
-        return $this->belongsTo(Grandearea::class);
-    }
+    // public function grandearea(){
+    //     return $this->belongsTo(Grandearea::class);
+    // }
 
     // public function subareas(){
     //     return $this->hasMany(Subarea::class);

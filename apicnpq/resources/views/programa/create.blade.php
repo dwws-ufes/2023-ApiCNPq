@@ -1,6 +1,6 @@
-<x-layout title="Nova grande área">
+<x-layout title="Nova Programa CNPq">
 <div class="container" >
-    <h1>Cadastro de nova grande área</h1>
+    <h1>Cadastro de nova Programa CNPq</h1>
     <p>Insira os dados abaixos para realizar o cadastro!</p>
     <form action="/programa/salvar" method="post">
         @csrf

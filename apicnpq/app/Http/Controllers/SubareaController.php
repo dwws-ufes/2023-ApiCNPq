@@ -9,16 +9,16 @@ use App\Models\Subarea;
 // use App\Controllers\AreasController;
 use App\Models\Grandearea;
 
-class SubareaController extends Controller
-{
+class SubareaController extends Controller{
     /**
      * Display a listing of the resource.
      */
     public function index(){
-        $subareas = \DB::select('SELECT sb.id, sb.nome_subarea, sb.area_id, sb.grande_area_id, ar.nome_area, ga.nome_grandearea, ga.id, ar.id 
-        FROM subarea AS sb 
-        INNER JOIN area as ar ON sb.area_id = ar.id 
-        INNER JOIN grandearea as ga ON sb.grande_area_id = ga.id;');
+
+        $subareas = \DB::select('SELECT subarea.id, subarea.nome_subarea, area.nome_area, grandearea.nome_grandearea
+        FROM subarea
+        INNER JOIN area ON subarea.area_id = area.id
+        INNER JOIN grandearea ON area.grande_area_id = grandearea.id');
         
         return view('subarea.index')->with('subareas', $subareas);
     }
@@ -58,39 +58,36 @@ class SubareaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    // public function edit(string $id){
-    //     $grandeAreas = Grandearea::all();
-    //     $area = Areas::all();
-    //     $subarea = Subarea::findOrFail($id);
-    
-    //     //return view('subarea.edit', compact('grandeAreas', 'area', 'subarea'));
-    //     return view('subarea.edit')->with('subarea', $subarea)->with('areas', $areas)->with('grandeAreas', $grandeAreas);
-    // }
+
     public function edit(string $id) {
-        $grandeAreas = Grandearea::all();
+        $grandeareas = Grandearea::all();
         $areas = Areas::all();
         $subarea = Subarea::findOrFail($id);
     
-        return view('subarea.edit', compact('grandeAreas', 'areas', 'subarea'));
+        return view('subarea.edit', compact('grandeareas', 'areas', 'subarea'));
     }
     
-
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
+    public function update(Request $request, string $id){
+        $id = $id;  
+        $subarea = $request->input('subarea');
+        $area = $request->input('opcao_a');
+        $grandearea = $request->input('opcao_ga'); 
+    
+        if(\DB::update("UPDATE subarea SET nome_subarea = '" . $subarea . "', grande_area_id = '" . $grandearea . "', area_id ='" . $area . "' WHERE id = ?", [$id])){
+            return redirect('/subarea')->with('msg', 'Endereço editado com sucesso!');
+        }else{ 
+                return "Erro ao editar";
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(int $id){
-        // echo $id;
-        $subarea = Subarea::findOrFail($id);
-        // $subarea->delete();
-        
+    public function destroy(string $id){
+
         if(\DB::table('subarea')->where('id', $id)->delete()){
             return redirect('/subarea')->with('msg', 'Excluída com sucesso!');
         }else{ 

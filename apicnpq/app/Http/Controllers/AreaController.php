@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Areas;
+use App\Models\Grandearea;
 
 
 class AreaController extends Controller{
@@ -11,9 +12,11 @@ class AreaController extends Controller{
      * Display a listing of the resource.
      */
     public function index(){
-        $areas = \DB::select('SELECT ar.id, ar.nome_area, ga.nome_grandearea
-        FROM area AS ar
-        INNER JOIN grandearea AS ga ON ar.grande_area_id = ga.id;');
+        // $areas = \DB::select('SELECT ar.id, ar.nome_area, ga.nome_grandearea
+        // FROM area AS ar
+        // INNER JOIN grandearea AS ga ON ar.grande_area_id = ga.id;');
+
+        $areas = \DB::select('SELECT * FROM grandearea JOIN area ON area.grande_area_id = grandearea.id');
         
         return view('areas.index')->with('areas', $areas);
     }
@@ -84,6 +87,8 @@ class AreaController extends Controller{
      * Remove the specified resource from storage.
      */
     public function destroy(int $id){
+        // \DB::table('area')->where('id', $id)->delete()
+        // \DB::statement('SET FOREIGN_KEY_CHECKS=1');
         if(\DB::table('area')->where('id', $id)->delete()){
             return redirect('/areas')->with('msg', 'Área excluída com sucesso!');
         }else{ 
