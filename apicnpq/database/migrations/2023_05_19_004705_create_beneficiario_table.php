@@ -20,13 +20,13 @@ return new class extends Migration
             $table->foreign('programacnpq_id')->references('id')->on('programacnpq');
 
             $table->integer('bolsa_id')->unsigned();
-            $table->foreign('bolsa_id')->references('id')->on('bolsa');
+            $table->foreign('bolsa_id')->references('id')->on('bolsas');
            
             $table->integer('endereco_id')->unsigned();
             $table->foreign('endereco_id')->references('id')->on('enderecos');
 
             $table->integer('instituicao_id')->unsigned();
-            $table->foreign('instituicao_id')->references('id')->on('instituicao');
+            $table->foreign('instituicao_id')->references('id')->on('instituicaos');
 
             $table->timestamps();
         });

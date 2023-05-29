@@ -11,19 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bolsa', function (Blueprint $table) {
+        Schema::create('instituicaos', function (Blueprint $table) {
             $table->id();
 
-            $table->integer('protocolo');
+            $table->string('nome_instituuicao');
             
-            $table->integer('programacnpq_id')->unsigned();
-            $table->foreign('programacnpq_id')->references('id')->on('programacnpq');
-
-            $table->date('data_inicio');
-            $table->date('data_fim');
-
-            $table->float('valor_bolsa');
-
             $table->integer('endereco_id')->unsigned();
             $table->foreign('endereco_id')->references('id')->on('enderecos');
 
@@ -36,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bolsa');
+        Schema::dropIfExists('instituicaos');
     }
 };

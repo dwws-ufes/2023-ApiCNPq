@@ -22,6 +22,9 @@
                     <a  class="btn btn-primary" href="/subarea">Sub áreas</a>
                     <a  class="btn btn-primary" href="/enderecos">Endereços</a>
                     <a  class="btn btn-primary" href="/enderecos/ufs">Ufs</a>
+                    <a  class="btn btn-primary" href="/instituicoes">Instituições</a>
+                    <a  class="btn btn-primary" href="/bolsas">Bolsas</a>
+                    <a  class="btn btn-primary" href="/beneficiarios">Beneficiarios</a>
                 </div>
             </div>
         </nav>

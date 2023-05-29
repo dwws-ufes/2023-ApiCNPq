@@ -9,6 +9,9 @@ use App\Http\Controllers\EnderecoController;
 use App\Http\Controllers\GrandeareaController;
 use App\Http\Controllers\SubareaController;
 use App\Http\Controllers\ProgramaController;
+use App\Http\Controllers\BolsaController;
+use App\Http\Controllers\InstituicaoController;
+use App\Http\Controllers\BeneficiarioController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -81,3 +84,27 @@ Route::post('/programa/salvar', [ProgramaController::class, 'store']);
 Route::delete('/programa/{id}', [ProgramaController::class, 'destroy']);
 Route::get('/programa/{id}/edit', [ProgramaController::class, 'edit']);
 Route::put('/programa/{id}', [ProgramaController::class, 'update']);
+
+// Rotas bolsas
+Route::get('/bolsas', [BolsaController::class, 'index']);
+Route::get('/bolsas/cadastro', [BolsaController::class, 'create']);
+Route::post('/bolsas/salvar', [BolsaController::class, 'store']);
+Route::delete('/bolsas/{id}', [BolsaController::class, 'destroy']);
+Route::get('/bolsas/{id}/edit', [BolsaController::class, 'edit']);
+Route::put('/bolsas/{id}', [BolsaController::class, 'update']);
+
+//Rotas para Instituicoes
+Route::get('/instituicoes', [InstituicaoController::class, 'index']);
+Route::get('/instituicoes/cadastro', [InstituicaoController::class, 'create']);
+Route::post('/instituicoes/salvar', [InstituicaoController::class, 'store']);
+Route::delete('/instituicoes/{id}', [InstituicaoController::class, 'destroy']);
+Route::get('/instituicoes/{id}/edit', [InstituicaoController::class, 'edit']);
+Route::put('/instituicoes/{id}', [InstituicaoController::class, 'update']); 
+
+// Rotas bolsas
+Route::get('/beneficiarios', [BeneficiarioController::class, 'index']);
+Route::get('/beneficiarios/cadastro', [BeneficiarioController::class, 'create']);
+Route::post('/beneficiarios/salvar', [BeneficiarioController::class, 'store']);
+Route::delete('/beneficiarios/{id}', [BeneficiarioController::class, 'destroy']);
+Route::get('/beneficiarios/{id}/edit', [BeneficiarioController::class, 'edit']);
+Route::put('/beneficiarios/{id}', [BeneficiarioController::class, 'update']);

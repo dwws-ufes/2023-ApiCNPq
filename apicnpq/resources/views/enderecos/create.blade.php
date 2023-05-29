@@ -1,6 +1,6 @@
 <x-layout title="Novo Endereço">
 <div class="container" >
-    <h1>Cadastro de novo endereco</h1>
+    <h1>Cadastro de novo endereço</h1>
     <p>Insira os dados abaixos para realizar o cadastro!</p>
     <form action="/enderecos/salvar" method="post">
         @csrf
