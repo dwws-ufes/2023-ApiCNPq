@@ -11,7 +11,7 @@
                     <th scope="col">Programa</th>
                     <th scope="col">Bolsa</th>
                     <th scope="col">Endereço</th>
-                    <th scope="col">instituição</th>
+                    <th scope="col">Instituição</th>
                     <th scope="col"style="text-align: center !important;">Action</th>
                 </tr>
             </thead>
