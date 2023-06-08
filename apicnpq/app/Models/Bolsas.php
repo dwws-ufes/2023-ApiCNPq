@@ -17,4 +17,5 @@ class Bolsas extends Model
         'valorbolsa',
         'endereco_id'
     ];
+    protected $table = 'bolsas';
 }

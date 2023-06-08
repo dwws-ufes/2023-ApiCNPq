@@ -30,6 +30,11 @@ return new class extends Migration
 
             $table->timestamps();
         });
+
+        // Schema::table('beneficiario', function (Blueprint $table) {
+        //     $table->foreignId('bolsa_id')->constrained('bolsas');
+        // });
+        
     }
 
     /**
