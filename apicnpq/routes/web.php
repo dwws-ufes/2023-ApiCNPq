@@ -12,6 +12,8 @@ use App\Http\Controllers\ProgramaController;
 use App\Http\Controllers\BolsaController;
 use App\Http\Controllers\InstituicaoController;
 use App\Http\Controllers\BeneficiarioController;
+use App\Http\Controllers\UploadController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -108,3 +110,9 @@ Route::post('/beneficiarios/salvar', [BeneficiarioController::class, 'store']);
 Route::delete('/beneficiarios/{id}', [BeneficiarioController::class, 'destroy']);
 Route::get('/beneficiarios/{id}/edit', [BeneficiarioController::class, 'edit']);
 Route::put('/beneficiarios/{id}', [BeneficiarioController::class, 'update']);
+
+//Rotas upload
+Route::get('/upload', [UploadController::class, 'showUploadForm']);
+// Route::post('/upload/process', [UploadController::class, 'uploadFile']);
+Route::post('/upload/process', [UploadController::class, 'processarArquivo']);
+// Route::post('/upload', 'UploadController@uploadFile')->name('upload.process');
