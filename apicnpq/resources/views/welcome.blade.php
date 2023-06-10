@@ -50,9 +50,11 @@
 
     <nav class="navbar bg-light">
         <div class="container-fluid">
-            <p class="navbar-brand" href="/">
+        <a href="/"  >
+            <p class="navbar-brand">
                 <img src="\image\cnpq-logo.png" alt="Logo" width="80" height="60" class="d-inline-block align-text-center">
             </p>
+        </a>
             <div>
                 <a  class="btn btn-primary" href="/usuarios">Usuários</a> 
                 <a  class="btn btn-primary" href="/programa">Programas CNPq</a> 
@@ -80,6 +82,7 @@
                     <p>A nível organizacional, a execução dos pontos do programa pode nos levar a considerar a reestruturação do orçamento setorial.</p>
                     <div class="button-aling">
                        <a href="/beneficiarios" class="btn btn-outline-secondary">Veja todos os bolsistas</a>
+                       <a href="/upload" class="btn btn-outline-secondary">Insira dados usando CSV</a>
                     </div>
                     
                 </div>

@@ -36,10 +36,30 @@ class UploadController extends Controller{
                 // $rows = implode("; ", $rows);
                 // print_r( $rows) ;
                 // exit;
-                for($i = 1; $i<count($rows); $i++){
-                    \DB::table('ufs')->insert(['sigla' => $rows[$i]]);
-                    // print_r($rows[$i]);
-                } 
+                $tipo = $request->input('opcao');
+                
+                if($tipo == 'uf'){
+                    // echo 'uf';
+                    for($i = 1; $i<count($rows); $i++){
+                        \DB::table('ufs')->insert(['sigla' => $rows[$i]]);
+                        // print_r($rows[$i]);
+                    } 
+                }else if ($tipo == 'ga' ){
+                    // echo 'ga';
+                    for($i = 1; $i<count($rows); $i++){
+                        \DB::table('grandearea')->insert(['nome_grandearea' => $rows[$i]]);
+                        // print_r($rows[$i]);
+                    } 
+                }else{
+                    // echo 'programas';
+                    // for($i = 1; $i<count($rows); $i++){
+                    //     \DB::table('programacnpq')->insert(['nome_programa' => $rows[$i]]);
+                    //     // print_r($rows[$i]);
+                    // } 
+                    return response()->json(['error' => 'Nenhum arquivo enviado']);
+                }
+                // exit;
+                
                 return response()->json(['message' => 'Arquivo processado com sucesso']);
             }
         }

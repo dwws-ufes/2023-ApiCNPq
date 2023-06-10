@@ -10,9 +10,11 @@
 <body>
         <nav class="navbar bg-light">
             <div class="container-fluid">
-                <p class="navbar-brand" href="/">
-                <img src="\image\cnpq-logo.png" alt="Logo" width="80" height="60" class="d-inline-block align-text-center">
+            <a href="/"  >
+                <p class="navbar-brand">
+                    <img src="\image\cnpq-logo.png" alt="Logo" width="80" height="60" class="d-inline-block align-text-center">
                 </p>
+            </a>
                 
                 <div>
                     <a  class="btn btn-primary" href="/usuarios">Usuários</a> 
@@ -25,6 +27,7 @@
                     <a  class="btn btn-primary" href="/instituicoes">Instituições</a>
                     <a  class="btn btn-primary" href="/bolsas">Bolsas</a>
                     <a  class="btn btn-primary" href="/beneficiarios">Beneficiarios</a>
+                    <a  class="btn btn-primary" href="/upload">Upload de CSV</a>
                 </div>
             </div>
         </nav>
