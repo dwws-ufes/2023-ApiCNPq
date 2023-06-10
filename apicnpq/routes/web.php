@@ -113,6 +113,4 @@ Route::put('/beneficiarios/{id}', [BeneficiarioController::class, 'update']);
 
 //Rotas upload
 Route::get('/upload', [UploadController::class, 'showUploadForm']);
-// Route::post('/upload/process', [UploadController::class, 'uploadFile']);
 Route::post('/upload/process', [UploadController::class, 'processarArquivo']);
-// Route::post('/upload', 'UploadController@uploadFile')->name('upload.process');
