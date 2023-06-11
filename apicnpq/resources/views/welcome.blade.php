@@ -82,7 +82,8 @@
                     <p>A nível organizacional, a execução dos pontos do programa pode nos levar a considerar a reestruturação do orçamento setorial.</p>
                     <div class="button-aling">
                        <a href="/beneficiarios" class="btn btn-outline-secondary">Veja todos os bolsistas</a>
-                       <a href="/upload" class="btn btn-outline-secondary">Insira dados usando CSV</a>
+                       <a href="/upload" class="btn btn-outline-secondary">Insira dados usando CSV</a> 
+                       <a href="/gerar-relatorio" class="btn btn-outline-secondary" style="margin-top: 10px;">Relatório do sistema</a>
                     </div>
                     
                 </div>

@@ -13,6 +13,7 @@ use App\Http\Controllers\BolsaController;
 use App\Http\Controllers\InstituicaoController;
 use App\Http\Controllers\BeneficiarioController;
 use App\Http\Controllers\UploadController;
+use App\Http\Controllers\RelatorioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,9 +77,6 @@ Route::delete('/enderecos/ufs/{id}', [UfController::class, 'destroy']);
 Route::get('/enderecos/ufs/{id}/edit', [UfController::class, 'edit']);
 Route::put('/enderecos/ufs/{id}', [UfController::class, 'update']);
 
-//Rotas para beneficiarios
-// Route::get('/beneficiarios', []);
-
 // Rotas programas
 Route::get('/programa', [ProgramaController::class, 'index']);
 Route::get('/programa/cadastro', [ProgramaController::class, 'create']);
@@ -103,7 +101,7 @@ Route::delete('/instituicoes/{id}', [InstituicaoController::class, 'destroy']);
 Route::get('/instituicoes/{id}/edit', [InstituicaoController::class, 'edit']);
 Route::put('/instituicoes/{id}', [InstituicaoController::class, 'update']); 
 
-// Rotas bolsas
+// Rotas beneficiario
 Route::get('/beneficiarios', [BeneficiarioController::class, 'index']);
 Route::get('/beneficiarios/cadastro', [BeneficiarioController::class, 'create']);
 Route::post('/beneficiarios/salvar', [BeneficiarioController::class, 'store']);
@@ -114,3 +112,6 @@ Route::put('/beneficiarios/{id}', [BeneficiarioController::class, 'update']);
 //Rotas upload
 Route::get('/upload', [UploadController::class, 'showUploadForm']);
 Route::post('/upload/process', [UploadController::class, 'processarArquivo']);
+
+//Rotas de relatório
+Route::get('/gerar-relatorio', [RelatorioController::class, 'gerarRelatorio']);

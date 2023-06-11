@@ -2,6 +2,7 @@
     <div class="container" >      
         <h1>Lista de beneficiarios do sistema</h1>
         <a  class="btn btn-primary" href="/beneficiarios/cadastro">Cadastre um novo beneficiario</a>
+        <a  class="btn btn-outline-info" href="/gerar-relatorio">Relatório</a>
         <hr>
         <table class="table">
             <thead>
