@@ -63,7 +63,7 @@ const mix = require('laravel-mix');
 
 Além disso, para executar corretamente o comando do mix, adicione ao seu **package.json**, em *"scripts"*, a linha **"mix": "mix"**.
 
-Para executar o front-edn, vamos utilizar: ``npm run mix``
+Para executar o front-end, vamos utilizar: ``npm run mix``
 
 ## Instalando o Boostrap
 
