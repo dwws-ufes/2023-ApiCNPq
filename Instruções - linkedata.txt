@@ -1,3 +1,5 @@
+ajustar o código php para fazer consulta na dbpedia e buscar informações da UF para salvar no banco de dados ajustando os códigos da Rota, Controller e View. A informação da dbpedia será visualizada na hora de editar.
+
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -116,6 +118,183 @@ Route::post('/upload/process', [UploadController::class, 'processarArquivo']);
 //Rotas de relatório
 Route::get('/gerar-relatorio', [RelatorioController::class, 'gerarRelatorio']);
 
-// Rota de resumo
-Route::get('/enderecos/ufs/{uf}/resumo', [UfController::class, 'getResumo']);
 
+Controller:
+
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Uf;
+use Illuminate\Http\Request;
+
+class UfController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $ufs =  \DB::select('SELECT * FROM ufs;');
+
+        return view('ufs.index')->with('ufs', $ufs);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('ufs.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $siglaUf = $request->input('sigla');
+       
+        if(\DB::insert('INSERT INTO ufs (sigla) VALUES (?)', [$siglaUf])){
+            return redirect('/enderecos/ufs');
+        }else{ 
+            return "Erro ao cadastrar";
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        $uf = Uf::findOrFail($id);
+        return view('ufs.edit')->with('uf', $uf);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        $id = $id;  
+        $siglaUf = $request->input('sigla');
+    
+        if(\DB::update("UPDATE ufs SET sigla = '" . $siglaUf ."' WHERE id = ?", [$id])){
+            return redirect('/enderecos/ufs')->with('msg', 'Uf editado com sucesso!');
+        }else{ 
+                return "Erro ao editar";
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        echo $id;
+        if(\DB::table('ufs')->where('id', $id)->delete()){
+            return redirect('/enderecos/ufs')->with('msg', 'Uf excluído com sucesso!');
+        }else{ 
+                return "Erro ao excluir";
+        }
+    }
+}
+
+View create:
+<x-layout title="Novo Uf">
+<div class="container" >
+    <h1>Cadastro de novo Uf</h1>
+    <p>Insira os dados abaixos para realizar o cadastro!</p>
+    <form action="/enderecos/ufs/salvar" method="post">
+        @csrf
+        <div class="form-group">
+            <div class="form-group">
+                <label for="sigla">Uf: </label>
+                <input class="form-control" class="form-control" type="text" id="sigla" name="sigla">
+            </div>
+
+            
+        </div>
+        <div><br></div> 
+        <button class="btn btn-primary" type="submit" >Cadastrar</button>
+        <div><br></div> 
+    </form>
+</div>
+</x-layout>
+
+View Edit:
+
+<x-layout title="Editando Uf">
+<div class="container" >
+    <h1>Editando uf</h1>
+
+    <hr>
+
+    <p>Insira os dados abaixos para realizar a atualização!</p>
+    
+    <form action="/enderecos/ufs/{{$uf->id}}" method="post">
+        @csrf
+        @method('PUT')
+        <div class="form-group">
+            <div class="form-group">
+            <div class="row">
+                <div class="col">
+                    <label for="sigla">Sigla: </label>
+                    <input class="form-control" class="form-control" type="text" id="sigla" name="sigla" value="{{$uf->sigla}}">
+                </div>
+            </div>  
+            <div><br></div> 
+            <button class="btn btn-success" type="submit">Salvar</button>                  
+        </div>
+        
+
+        <div><br></div> 
+    </form>
+</div>
+</x-layout>
+
+
+View index:
+
+<x-layout title="Uf">
+    <div class="container" >      
+        <h1>Lista de Ufs do sistema</h1>
+        <a  class="btn btn-primary" href="/enderecos/ufs/cadastro">Cadastre um novo Uf</a>
+        <hr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Uf</th>
+                    <th scope="col"style="text-align: center !important;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($ufs as $uf)
+                <tr>
+                    <th scope="row">{{$uf->id}}</th>
+                    <td>
+                    {{$uf->sigla}}
+                    </td>
+                    <td style="text-align: center !important;display: flex;flex-direction: row;flex-wrap: nowrap;justify-content: center;">
+                        <a type="button" class="btn btn-outline-warning" style="margin-rigth: 3px;" href="/enderecos/ufs/{{$uf->id}}/edit">Editar</a>
+                        <form action="/enderecos/ufs/{{$uf->id}}" method="post">
+                            @csrf 
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Excluir</button>
+                        </form>
+                    </td>                  
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</x-layout>

@@ -1,3 +1,12 @@
+Objetivo: incorporar um algoritmo de Linked Data no código PHP 
+
+Usamos "UF" na DBpedia,
+
+Em pesquisa vamos usar biblioteca ou uma API que ofereça suporte a Linked Data e consultas SPARQL.
+Utilizamos a biblioteca PHP disponíveis para trabalhar com Linked Data e SPARQL, EasyRDF (https://www.easyrdf.org/)
+
+Falta testar o código que vai modificar o código PHP original para buscar informações na DBpedia e inserir no banco de dados:
+
 <?php
 
 namespace App\Models;
@@ -40,3 +49,18 @@ class Uf extends Model{
         }
     }
 }
+
+
+
+
+Em pesquisa vi que foi necessário usar uma função fetchAndInsertDataFromDBpedia à classe Uf. Essa função usa a biblioteca EasyRDF para executar uma consulta SPARQL na DBpedia, buscando as siglas das UFs. Em seguida, os dados são inseridos no banco de dados usando o modelo Uf.
+
+Será necessário incluir a biblioteca EasyRDF no projeto antes de usar este código. Usaremos o Composer (https://getcomposer.org/):
+
+
+bash
+composer require easyrdf/easyrdf
+
+
+
+Falta Testar
