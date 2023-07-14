@@ -115,3 +115,4 @@ Route::post('/upload/process', [UploadController::class, 'processarArquivo']);
 
 //Rotas de relatório
 Route::get('/gerar-relatorio', [RelatorioController::class, 'gerarRelatorio']);
+
