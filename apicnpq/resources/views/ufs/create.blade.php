@@ -19,22 +19,3 @@
         </form>
     </div>
 </x-layout>
-
-<script>
-    function consultarResumo() {
-        var uf = document.getElementById('sigla').value;
-        if (uf !== '') {
-            // Fazer a requisição AJAX para a rota no servidor
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    var resumo = JSON.parse(this.responseText).resumo;
-                    document.getElementById('resumo').value = resumo;
-                }
-            };
-            xhttp.open('GET', '/enderecos/ufs/' + encodeURIComponent(uf) + '/resumo', true);
-            xhttp.send();
-        }
-    }
-</script>
-
