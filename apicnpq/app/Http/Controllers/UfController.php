@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Uf;
 use Illuminate\Http\Request;
+use GuzzleHttp\Client; 
+use Illuminate\Support\Facades\Http;
 
 class UfController extends Controller
 {
@@ -16,6 +18,55 @@ class UfController extends Controller
 
         return view('ufs.index')->with('ufs', $ufs);
     }
+
+    /**
+     * buscar população dbpedia
+     */
+
+     public function getResumo(Request $request){
+    // Fazer a requisição à DBpedia e obter o resumo do UF
+    // Você pode usar bibliotecas como cURL ou Guzzle para fazer a requisição
+    //fazer conexão não segura (sem SSL)
+    $client = new \GuzzleHttp\Client([
+        'verify' => false
+    ]); 
+    $uf = $request->input('sigla');
+    // dd($uf);
+    // exit;
+
+    $client = new \GuzzleHttp\Client([
+        'verify' => false
+    ]);
+    $response = $client->get('https://dbpedia.org/sparql', [
+        'query' => [
+            'query' => 'PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
+                        PREFIX dbpedia: <http://dbpedia.org/resource/>
+
+                        SELECT ?abstract
+                        WHERE {
+                          dbpedia:' . $uf . ' dbpedia-owl:abstract ?abstract .
+                          FILTER (lang(?abstract) = "pt")
+                        }'
+        ],
+        'headers' => [
+            'Accept' => 'application/json'
+        ]
+    ]);
+
+    $data = json_decode($response->getBody(), true);
+    // dd($data);
+    // exit;
+
+    // Verificar se a resposta da DBpedia contém o resumo
+    if (isset($data['results']['bindings'][0]['abstract']['value'])) {
+        $resumo = $data['results']['bindings'][0]['abstract']['value'];
+    }
+        // Retornar o resumo como resposta JSON
+        return response()->json(['resumo' => $resumo]);
+    
+}
+     
+
 
     /**
      * Show the form for creating a new resource.
@@ -46,7 +97,8 @@ class UfController extends Controller
     {
         //
     }
-   
+    
+
     /**
      * Show the form for editing the specified resource.
      */
