@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Uf;
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
-
+use GuzzleHttp\Client; 
+use Illuminate\Support\Facades\Http;
 
 class UfController extends Controller
 {
@@ -23,13 +23,20 @@ class UfController extends Controller
      * buscar população dbpedia
      */
 
-     public function getResumo($uf)
-{
+     public function getResumo(Request $request){
     // Fazer a requisição à DBpedia e obter o resumo do UF
     // Você pode usar bibliotecas como cURL ou Guzzle para fazer a requisição
+    //fazer conexão não segura (sem SSL)
+    $client = new \GuzzleHttp\Client([
+        'verify' => false
+    ]); 
+    $uf = $request->input('sigla');
+    // dd($uf);
+    // exit;
 
-    // Exemplo de código usando a biblioteca Guzzle:
-    $client = new \GuzzleHttp\Client();
+    $client = new \GuzzleHttp\Client([
+        'verify' => false
+    ]);
     $response = $client->get('https://dbpedia.org/sparql', [
         'query' => [
             'query' => 'PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
@@ -47,17 +54,16 @@ class UfController extends Controller
     ]);
 
     $data = json_decode($response->getBody(), true);
+    // dd($data);
+    // exit;
 
     // Verificar se a resposta da DBpedia contém o resumo
     if (isset($data['results']['bindings'][0]['abstract']['value'])) {
         $resumo = $data['results']['bindings'][0]['abstract']['value'];
-
+    }
         // Retornar o resumo como resposta JSON
         return response()->json(['resumo' => $resumo]);
-    }
-
-    // Caso o resumo não seja encontrado, retornar uma resposta de erro
-    return response()->json(['error' => 'Resumo não encontrado'], 404);
+    
 }
      
 
