@@ -71,23 +71,8 @@ class UfController extends Controller
         ]);
         // dd($request);
         $uf = $request->input('sigla');
-        dd($uf);
+        // dd($uf);
 
-        // $response = $client->get('https://dbpedia.org/sparql', [
-        //     'query' => [
-        //         'query' => 'PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
-        //                     PREFIX dbpedia: <http://dbpedia.org/resource/>
-    
-        //                     SELECT ?s ?p ?o
-        //                     WHERE {
-        //                         dbpedia:' . $uf . ' dbpedia-owl:abstract ?o .
-        //                         FILTER (lang(?o) = "pt")
-        //                     }'
-        //     ],
-        //     'headers' => [
-        //         'Accept' => 'application/json'
-        //     ]
-        // ]);
         $consultaSPARQL = 'PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
                        PREFIX dbpedia: <http://dbpedia.org/resource/>
 
@@ -98,6 +83,20 @@ class UfController extends Controller
                        }
                        LIMIT 1';
 
+        // $consultaSPARQL = 'PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
+        //            PREFIX dbpedia: <http://dbpedia.org/resource/>
+
+        //            SELECT ?o ?capital ?populacao ?localizacao
+        //            WHERE {
+        //                dbpedia:' . $uf . ' dbpedia-owl:abstract ?o ;
+        //                              dbpedia-owl:capital ?capital ;
+        //                              dbpedia-owl:populationTotal ?populacao ;
+        //                              dbpedia-owl:location ?localizacao .
+        //                FILTER (lang(?o) = "pt")
+        //            }
+        //            LIMIT 1';
+
+
     $response = $client->get('https://dbpedia.org/sparql', [
         'query' => [
             'query' => $consultaSPARQL,
@@ -107,32 +106,25 @@ class UfController extends Controller
         ],
     ]);
         $data = json_decode($response->getBody(), true);
-        dd($data);
-        // exit;
     
-        // $rdfContent = '';
-        // foreach ($data['results']['bindings'] as $row) {
-        //     $s = $row['s']['value']; // sujeito (se estiver disponível)
-        //     $p = $row['p']['value']; // predicado (se estiver disponível)
-        //     $o = $row['o']['value']; // objeto (conteúdo do resumo)
-    
-     
-        //     // $rdfContent .= "<$s> <$p> \"$o\"@pt .\n";
-        //     $rdfContent .= "\"$o\"@pt .\n";  
-        // }
+        
         $rdfContent = '';
         foreach ($data['results']['bindings'] as $row) {
             $o = $row['o']['value']; // Objeto (conteúdo do resumo)
             $rdfContent .= "\"$o\"@pt .\n";
         }
-        // Definir o nome do arquivo
+       
+
         $fileName = "consulta_resultado.ttl";
 
         // Definir o cabeçalho de resposta
         header('Content-Type: text/turtle');
         header('Content-Disposition: attachment; filename="' . $fileName . '"');
 
-        echo $rdfContent;
+    
+        return response($rdfContent)
+            ->header('Content-Type', 'text/turtle')
+            ->header('Content-Disposition', 'attachment; filename="' . $fileName . '"');
     }
 
     /**
