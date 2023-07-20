@@ -118,3 +118,4 @@ Route::get('/gerar-relatorio', [RelatorioController::class, 'gerarRelatorio']);
 
 // Rota de resumo
 Route::get('/enderecos/ufs/{nome}/resumo', [UfController::class, 'getResumo']);
+Route::get('enderecos/ufs/{nome}/rdf', [UfController::class, 'getRdfFromDbpedia']);

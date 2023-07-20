@@ -23,50 +23,117 @@ class UfController extends Controller
      * buscar população dbpedia
      */
 
-     public function getResumo(Request $request){
-    // Fazer a requisição à DBpedia e obter o resumo do UF
-    // Você pode usar bibliotecas como cURL ou Guzzle para fazer a requisição
-    //fazer conexão não segura (sem SSL)
-    $client = new \GuzzleHttp\Client([
-        'verify' => false
-    ]); 
-    $uf = $request->input('sigla');
-    // dd($uf);
-    // exit;
+    public function getResumo(Request $request){
+        // Fazer a requisição à DBpedia e obter o resumo do UF
+        // Você pode usar bibliotecas como cURL ou Guzzle para fazer a requisição
+        //fazer conexão não segura (sem SSL)
+        $client = new \GuzzleHttp\Client([
+            'verify' => false
+        ]); 
+        $uf = $request->input('sigla');
+        // dd($uf);
+        // exit;
 
-    $client = new \GuzzleHttp\Client([
-        'verify' => false
-    ]);
+        $client = new \GuzzleHttp\Client([
+            'verify' => false
+        ]);
+        $response = $client->get('https://dbpedia.org/sparql', [
+            'query' => [
+                'query' => 'PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
+                            PREFIX dbpedia: <http://dbpedia.org/resource/>
+
+                            SELECT ?abstract
+                            WHERE {
+                            dbpedia:' . $uf . ' dbpedia-owl:abstract ?abstract .
+                            FILTER (lang(?abstract) = "pt")
+                            }'
+            ],
+            'headers' => [
+                'Accept' => 'application/json'
+            ]
+        ]);
+
+        $data = json_decode($response->getBody(), true);
+        // dd($data);
+        // exit;
+
+        // Verificar se a resposta da DBpedia contém o resumo
+        if (isset($data['results']['bindings'][0]['abstract']['value'])) {
+            $resumo = $data['results']['bindings'][0]['abstract']['value'];
+        }
+            // Retornar o resumo como resposta JSON
+            return response()->json(['resumo' => $resumo]);
+    }
+     
+    public function getRdfFromDbpedia(Request $request){
+        $client = new \GuzzleHttp\Client([
+            'verify' => false
+        ]);
+        // dd($request);
+        $uf = $request->input('sigla');
+        dd($uf);
+
+        // $response = $client->get('https://dbpedia.org/sparql', [
+        //     'query' => [
+        //         'query' => 'PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
+        //                     PREFIX dbpedia: <http://dbpedia.org/resource/>
+    
+        //                     SELECT ?s ?p ?o
+        //                     WHERE {
+        //                         dbpedia:' . $uf . ' dbpedia-owl:abstract ?o .
+        //                         FILTER (lang(?o) = "pt")
+        //                     }'
+        //     ],
+        //     'headers' => [
+        //         'Accept' => 'application/json'
+        //     ]
+        // ]);
+        $consultaSPARQL = 'PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
+                       PREFIX dbpedia: <http://dbpedia.org/resource/>
+
+                       SELECT ?o
+                       WHERE {
+                           dbpedia:' . $uf . ' dbpedia-owl:abstract ?o .
+                           FILTER (lang(?o) = "pt")
+                       }
+                       LIMIT 1';
+
     $response = $client->get('https://dbpedia.org/sparql', [
         'query' => [
-            'query' => 'PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
-                        PREFIX dbpedia: <http://dbpedia.org/resource/>
-
-                        SELECT ?abstract
-                        WHERE {
-                          dbpedia:' . $uf . ' dbpedia-owl:abstract ?abstract .
-                          FILTER (lang(?abstract) = "pt")
-                        }'
+            'query' => $consultaSPARQL,
         ],
         'headers' => [
-            'Accept' => 'application/json'
-        ]
+            'Accept' => 'application/json',
+        ],
     ]);
-
-    $data = json_decode($response->getBody(), true);
-    // dd($data);
-    // exit;
-    //$resumo = null;
-    // Verificar se a resposta da DBpedia contém o resumo
-    if (isset($data['results']['bindings'][0]['abstract']['value'])) {
-        $resumo = $data['results']['bindings'][0]['abstract']['value'];
-    }
-        // Retornar o resumo como resposta JSON
-        return response()->json(['resumo' => $resumo]);
+        $data = json_decode($response->getBody(), true);
+        dd($data);
+        // exit;
     
-}
+        // $rdfContent = '';
+        // foreach ($data['results']['bindings'] as $row) {
+        //     $s = $row['s']['value']; // sujeito (se estiver disponível)
+        //     $p = $row['p']['value']; // predicado (se estiver disponível)
+        //     $o = $row['o']['value']; // objeto (conteúdo do resumo)
+    
      
+        //     // $rdfContent .= "<$s> <$p> \"$o\"@pt .\n";
+        //     $rdfContent .= "\"$o\"@pt .\n";  
+        // }
+        $rdfContent = '';
+        foreach ($data['results']['bindings'] as $row) {
+            $o = $row['o']['value']; // Objeto (conteúdo do resumo)
+            $rdfContent .= "\"$o\"@pt .\n";
+        }
+        // Definir o nome do arquivo
+        $fileName = "consulta_resultado.ttl";
 
+        // Definir o cabeçalho de resposta
+        header('Content-Type: text/turtle');
+        header('Content-Disposition: attachment; filename="' . $fileName . '"');
+
+        echo $rdfContent;
+    }
 
     /**
      * Show the form for creating a new resource.

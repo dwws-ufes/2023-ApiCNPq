@@ -10,7 +10,6 @@
             </div>
             <div><br></div>
             <button class="btn btn-primary" type="submit">Cadastrar</button>
-            <!-- <button class="btn btn-primary" type="button" onclick="consultarResumo()">Consultar Resumo</button> -->
             <div><br></div>
         </form>
             <div class="form-group">
@@ -23,43 +22,78 @@
                 <br>
                 <!-- <button id="btnObterResumo">Consultar Resumo</button> -->
                 <button class="btn btn-primary" type="button" id="btnObterResumo">Consultar Resumo</button>
+                <button class="btn btn-primary" type="button" id="btnGerarRDF">Consultar RDF</button>
             </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- <script src="../../../public/js/scripts.js"></script> -->
     <script> 
 // script.js
-$(document).ready(function () {
-    // Evento de clique no botão com o id "btnObterResumo"
-    $('#btnObterResumo').on('click', function () {
-        
+        $(document).ready(function () {
+            // Evento de clique no botão com o id "btnObterResumo"
+            $('#btnObterResumo').on('click', function () {
+                
+                var sigla = $('#siglates').val();
+                var url = '/enderecos/ufs/' + sigla + '/resumo';
+                console.log('Valor de sigla:', sigla); 
+                console.log('Valor de url:', url); 
+
+                $.ajax({
+                    url: url, //endpoint
+                    type: 'GET',
+                    data: { sigla: sigla }, // Passar a UF como parâmetro
+                    dataType: 'json',
+                    success: function (data) {
+                        // Manipular os dados recebidos do Laravel
+                        if (data.resumo) {
+                            // Se o resumo existir, exibir dentro do label "resumo"
+                            $('#resumo').text('Resumo: ' + data.resumo);
+                        } else {
+                            // Caso contrário, exibir mensagem de erro
+                            $('#resumo').text('Resumo não encontrado');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        // Tratar erros de requisição, se necessário
+                        console.log('Erro na requisição:', error);
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+    $("#btnGerarRDF").click(function() {
         var sigla = $('#siglates').val();
-        var url = '/enderecos/ufs/' + sigla + '/resumo';
-        console.log('Valor de sigla:', sigla); 
-        console.log('Valor de url:', url); 
+        var url = '/enderecos/ufs/' + sigla + '/rdf';
+        console.log('Valor de sigla:', sigla);
+        console.log('Valor de url:', url);
 
         $.ajax({
-            url: url, //endpoint
+            url: url,
             type: 'GET',
-            data: { sigla: sigla }, // Passar a UF como parâmetro
-            dataType: 'json',
-            success: function (data) {
-                // Manipular os dados recebidos do Laravel
-                if (data.resumo) {
-                    // Se o resumo existir, exibir dentro do label "resumo"
-                    $('#resumo').text('Resumo: ' + data.resumo);
-                } else {
-                    // Caso contrário, exibir mensagem de erro
-                    $('#resumo').text('Resumo não encontrado');
-                }
+            data: { sigla: sigla },
+            dataType: 'text',
+            success: function(data) {
+                // Se a solicitação foi bem-sucedida, criar um link para download do arquivo RDF
+                var blob = new Blob([data], { type: "text/turtle" });
+                var url = window.URL.createObjectURL(blob);
+                var a = document.createElement("a");
+                a.href = url;
+                a.download = "consulta_resultado.ttl"; // Nome do arquivo de download
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
             },
-            error: function (xhr, status, error) {
-                // Tratar erros de requisição, se necessário
-                console.log('Erro na requisição:', error);
+            error: function(xhr, status, error) {
+                // Se houver um erro na solicitação, exibir uma mensagem de erro
+                console.error("Erro ao gerar RDF:", error);
             }
         });
     });
 });
 
     </script>
+
 </x-layout>
