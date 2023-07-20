@@ -56,7 +56,7 @@ class UfController extends Controller
     $data = json_decode($response->getBody(), true);
     // dd($data);
     // exit;
-
+    //$resumo = null;
     // Verificar se a resposta da DBpedia contém o resumo
     if (isset($data['results']['bindings'][0]['abstract']['value'])) {
         $resumo = $data['results']['bindings'][0]['abstract']['value'];

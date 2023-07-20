@@ -13,20 +13,17 @@
             <!-- <button class="btn btn-primary" type="button" onclick="consultarResumo()">Consultar Resumo</button> -->
             <div><br></div>
         </form>
-        <form action="/enderecos/ufs/{uf}/resumo" method="post"> 
-            @csrf
             <div class="form-group">
             <div class="form-group">
                 <label for="sigla" id="sigla">Uf: </label>
-                <input class="form-control" type="text" id="sigla" name="sigla">
+                <input class="form-control" type="text" id="siglates" name="siglates">
             </div>
                 <label for="resumo">Resumo: </label>
                 <div id="resumo"></div>
                 <br>
                 <!-- <button id="btnObterResumo">Consultar Resumo</button> -->
-                <button class="btn btn-primary" type="submit" >Consultar Resumo</button>
+                <button class="btn btn-primary" type="button" id="btnObterResumo">Consultar Resumo</button>
             </div>
-        </form>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- <script src="../../../public/js/scripts.js"></script> -->
@@ -36,9 +33,10 @@ $(document).ready(function () {
     // Evento de clique no botão com o id "btnObterResumo"
     $('#btnObterResumo').on('click', function () {
         
-        var sigla = $('#sigla').val();
+        var sigla = $('#siglates').val();
         var url = '/enderecos/ufs/' + sigla + '/resumo';
         console.log('Valor de sigla:', sigla); 
+        console.log('Valor de url:', url); 
 
         $.ajax({
             url: url, //endpoint
